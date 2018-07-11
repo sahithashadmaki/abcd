@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
 public class MyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	    HashMap<String,String> map;
+	   static HashMap<String,SampleClass> map;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -43,91 +43,101 @@ public class MyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-	}
+				response.setContentType("text/html");
+				 PrintWriter out = response.getWriter();
+				 String uname=request.getParameter("uname");
+				
+				   
+				   String pass=request.getParameter("pass");
+				
+				  if(pass!=null && pass.equals("1234")){
+					  
+					  HttpSession session = request.getSession();
+					session.setAttribute("uname", uname);
+					 
+					  
+					  //session.setMaxInactiveInterval(30);
+				
+				  
+			 
+				   ServletContext ctx=getServletContext();  
+				   SampleClass info =new SampleClass();
+			     
+			        //String Id=(String)ctx.getAttribute("SessionId");
+			       // info.setId(Id);
+			      info.setUserName(uname);
+			      String name=info.getUserName();
+			     
+			     String date=(String) ctx.getAttribute("date");
+			     info.setDate(date);
+			    
+			     //String creationTime=info.getDate();
+			     //int requests=(Integer)session.getAttribute("numberOfRequests");
+					//out.print("<br>Requests: "+requests);
+					//info.setRequests(requests);
+				//	String inactive=(String) ctx.getAttribute("InActiveSessions");
+					//int errors=(Integer)session.getAttribute("numberOfErrorResponses");
+					//info.setErrorCount(errors);
+			     map.put(name,info);
+			     session.setAttribute("info",info);
+			     request.setAttribute("FinalMap", map);
+				 getServletContext().getRequestDispatcher("/table.jsp").include(request, response);	
+				  }
+			      //out.print(" " +map.get(info));
+			     /* for (Entry<String, SampleClass> entry : map.entrySet()) {
+			    	
+			    	  out.print("<br>unsername: "+entry.getValue().getUserName());
+			    	  out.print("<br>id: "+entry.getValue().getId());
+			    	  
+			    	  out.print("<br>creation time: "+entry.getValue().getDate());
+			    	  out.print("<br>no.of requests:"+entry.getValue().getRequests());
+			    	}*/
+			    	
+			    //  out.print(" <br>   Id: "+Id);
+			      //  Enumeration users=getServletContext().getAttributeNames();
+			      //  out.print("username" +name);
+			      //  out.print("<br> id:" +session.get);
+				
+				//out.print("<br><h4>In Active Sessions" +inactive);
+				//String paramvalue=(String) ctx.getAttribute("ParamValue");
+				
+			/*	*/
+				
+				
+				 /*String user=entry.getKey();
+			    	info.setUserName(user);
+			    	String id=entry.getValue();
+			    	info.setId(id);*/
+			    	  //  out.print("<br> username: " + entry.getKey()+"<br> Id: "+entry.getValue());
+				//int responses=(Integer)ctx.getAttribute("numberOfErrorResponses");
+				//out.print("<br>error responses: "+responses);
+				/*  try {
+				   out.println("<html>");
+				   out.println("<body>");
+				   out.println("<tr>"+
+				   "<th>Number of active sessions</th>" +
+						   "<th>Requests</th>"+
+						   "<th>users</th>" +
+				       "</h2>" +
+				      "</tr>");
+				   out.println("</body>");
+				   out.println("</html>");
+				  } finally {
+				   out.close();
+				  }*/
+			        out.close();
+
+		}
+		
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//doGet(request, response);
+		doGet(request, response);
 		
-		  //  map = (HashMap) getServletConfig().getServletContext().getAttribute("map");
-		response.setContentType("text/html");
-		 PrintWriter out = response.getWriter();
-		 String uname=request.getParameter("uname");
-		 System.out.println(""+uname);
-		 
-	/*	  PrintWriter out = response.getWriter();
-		   
-		   String pass=request.getParameter("pass");
-		   //String[] str=request.getRequestURI().split("?");
-			//int length=UrlPath.length;
-		   System.out.println(""+uname+ " " +pass);
-		  if(pass.equals("1234")){
-			  HttpSession session = request.getSession();
-			session.setAttribute("uname", uname);
-			 //out.println("username : "+uname);
-			  
-			  //session.setMaxInactiveInterval(30);
-		  }
-		  
-		   ServletContext ctx=getServletContext();  
-		   SampleClass info =new SampleClass();
-	        int ActiveSessions=(Integer)ctx.getAttribute("numberOfActiveSessions");  
-	     //   String name=(String) .getAttribute("uname");
-	        out.print("<br><h4>Active Sessions</h4>"+ActiveSessions); 
-	        String Id=(String)ctx.getAttribute("SessionId");
-	     	       // out.print("<br>id: </br>"+id);
-	        //SampleClass map=(SampleClass)getServletContext().getAttribute("maps");
-	      
-	      info.setUserName(uname);
-	      String name=info.getUserName();
-	      map.put(name,Id);
-	     
-	      //out.print(" " +map.get(info));
-	      for (Entry<String, String> entry : map.entrySet()) {
-	    	    out.print("<br> username: " + entry.getKey()+"<br> Id: "+entry.getValue());
-	    	}
-	    //  out.print(" <br>   Id: "+Id);
-	      //  Enumeration users=getServletContext().getAttributeNames();
-	      //  out.print("username" +name);
-	      //  out.print("<br> id:" +session.get);
-		int requests=(Integer)ctx.getAttribute("numberOfRequests");
-		out.print("<br>Requests: "+requests);
-		
-		String inactive=(String) ctx.getAttribute("InActiveSessions");
-		out.print("<br><h4>In Active Sessions</h4>" +inactive);*/
-		//String paramvalue=(String) ctx.getAttribute("ParamValue");
-		
-		String paramvalue=(String)getServletContext().getAttribute("error");
-		int errorResponses=0;
-		
-		if(paramvalue!=null && paramvalue.equals("504")){
-			errorResponses++;
-			out.print("<br>Error Responses: "+errorResponses);
-		
-		}
-		//int responses=(Integer)ctx.getAttribute("numberOfErrorResponses");
-		//out.print("<br>error responses: "+responses);
-		/*  try {
-		   out.println("<html>");
-		   out.println("<body>");
-		   out.println("<tr>"+
-		   "<th>Number of active sessions</th>" +
-				   "<th>Requests</th>"+
-				   "<th>users</th>" +
-		       "</h2>" +
-		      "</tr>");
-		   out.println("</body>");
-		   out.println("</html>");
-		  } finally {
-		   out.close();
-		  }*/
-	        out.close();
-
-}
+	}
 }

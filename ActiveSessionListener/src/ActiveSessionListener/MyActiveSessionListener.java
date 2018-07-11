@@ -11,6 +11,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
 import javax.servlet.http.HttpSessionEvent;
@@ -24,8 +25,8 @@ import javax.servlet.http.HttpSessionListener;
 public class MyActiveSessionListener implements HttpSessionListener,ServletContextListener,HttpSessionBindingListener {
 private static int numberOfActiveSessions;
 ServletContext ctx=null;
-static HashMap<String,String> map ;
-//private static final DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+static HashMap<String,SampleClass> map ;
+private static final DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 
     /**
      * Default constructor. 
@@ -40,10 +41,13 @@ static HashMap<String,String> map ;
 	@Override
 	public void sessionCreated(HttpSessionEvent event) {
 		numberOfActiveSessions++;
+		 HttpSession session = event.getSession();
 		 ctx=event.getSession().getServletContext();
 		ctx.setAttribute("numberOfActiveSessions", numberOfActiveSessions);
-		String SessionId = event.getSession().getId();
-		ctx.setAttribute("SessionId", SessionId);
+		//String SessionId = event.getSession().getId();
+		//ctx.setAttribute("SessionId", SessionId);
+		String date=df.format(new Date(session.getCreationTime()));
+		ctx.setAttribute("date", date);
 		//System.out.println("session created by ID: " +event.getSession().getId());
 		//System.out.println("username: "+event.getClass().getName());
 		//System.out.println("creation time: "+df.format(new Date(event.getSession().getCreationTime())));
@@ -60,7 +64,7 @@ static HashMap<String,String> map ;
 		String username=(String) event.getSession().getAttribute("uname");
 		ctx=event.getSession().getServletContext();
          ctx.setAttribute("InActiveSessions",username);
-		for (Entry<String, String> entry : map.entrySet()) {
+		for (Entry<String, SampleClass> entry : map.entrySet()) {
 			if(entry.getKey().equals(username)){
 		     map.remove(entry.getKey());
 			}
@@ -86,7 +90,7 @@ static HashMap<String,String> map ;
 	public void contextInitialized(ServletContextEvent event) {
 		// TODO Auto-generated method stub
 	ctx=event.getServletContext();
-	map=new HashMap<String,String>();
+	map=new HashMap<String,SampleClass>();
 	ctx.setAttribute("maps", map);
 	//	ctx.setAttribute("map", map);
 	}
