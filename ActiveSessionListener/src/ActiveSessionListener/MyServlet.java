@@ -64,68 +64,20 @@ public class MyServlet extends HttpServlet {
 				   ServletContext ctx=getServletContext();  
 				   SampleClass info =new SampleClass();
 			     
-			        //String Id=(String)ctx.getAttribute("SessionId");
-			       // info.setId(Id);
+			      
 			      info.setUserName(uname);
 			      String name=info.getUserName();
 			     
 			     String date=(String) ctx.getAttribute("date");
 			     info.setDate(date);
-			    
-			     //String creationTime=info.getDate();
-			     //int requests=(Integer)session.getAttribute("numberOfRequests");
-					//out.print("<br>Requests: "+requests);
-					//info.setRequests(requests);
-				//	String inactive=(String) ctx.getAttribute("InActiveSessions");
-					//int errors=(Integer)session.getAttribute("numberOfErrorResponses");
-					//info.setErrorCount(errors);
+			  
 			     map.put(name,info);
 			     session.setAttribute("info",info);
 			     request.setAttribute("FinalMap", map);
 				 getServletContext().getRequestDispatcher("/table.jsp").include(request, response);	
+				 
 				  }
-			      //out.print(" " +map.get(info));
-			     /* for (Entry<String, SampleClass> entry : map.entrySet()) {
-			    	
-			    	  out.print("<br>unsername: "+entry.getValue().getUserName());
-			    	  out.print("<br>id: "+entry.getValue().getId());
-			    	  
-			    	  out.print("<br>creation time: "+entry.getValue().getDate());
-			    	  out.print("<br>no.of requests:"+entry.getValue().getRequests());
-			    	}*/
-			    	
-			    //  out.print(" <br>   Id: "+Id);
-			      //  Enumeration users=getServletContext().getAttributeNames();
-			      //  out.print("username" +name);
-			      //  out.print("<br> id:" +session.get);
-				
-				//out.print("<br><h4>In Active Sessions" +inactive);
-				//String paramvalue=(String) ctx.getAttribute("ParamValue");
-				
-			/*	*/
-				
-				
-				 /*String user=entry.getKey();
-			    	info.setUserName(user);
-			    	String id=entry.getValue();
-			    	info.setId(id);*/
-			    	  //  out.print("<br> username: " + entry.getKey()+"<br> Id: "+entry.getValue());
-				//int responses=(Integer)ctx.getAttribute("numberOfErrorResponses");
-				//out.print("<br>error responses: "+responses);
-				/*  try {
-				   out.println("<html>");
-				   out.println("<body>");
-				   out.println("<tr>"+
-				   "<th>Number of active sessions</th>" +
-						   "<th>Requests</th>"+
-						   "<th>users</th>" +
-				       "</h2>" +
-				      "</tr>");
-				   out.println("</body>");
-				   out.println("</html>");
-				  } finally {
-				   out.close();
-				  }*/
+			   
 			        out.close();
 
 		}

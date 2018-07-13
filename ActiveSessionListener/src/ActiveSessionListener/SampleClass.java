@@ -4,8 +4,8 @@ public class SampleClass {
 	 private String username;
      private String id;
 	private String date;
-	private int requests;
-	private int ErrorCount;
+	private static int requests;
+	private static int ErrorCount;
 	
      public String getUserName() {
         return username;
@@ -50,10 +50,16 @@ public class SampleClass {
 	public void increaseRequests(){
 		
 		requests++;
-		ErrorCount++;
+		
 	//	setRequests(requests);
 		System.out.println("In increaserequests method (requests)"+requests);
 	}
 
-
+public void increaseErrors(){
+		
+		
+		ErrorCount++;
+		System.out.println("In increaseErrors method(Errors)"+ErrorCount);
+		
+	}
 }

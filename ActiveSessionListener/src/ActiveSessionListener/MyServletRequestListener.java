@@ -43,27 +43,15 @@ public class MyServletRequestListener implements ServletRequestListener {
  		HttpSession session=req.getSession();
     	 String paramvalue=(String) ctx.getAttribute("error");
     	//String username=(String) ((HttpServletRequest) event).getSession().getAttribute("uname");
-    	 SampleClass info=(SampleClass) session.getAttribute("info");
+    	 SampleClass classObj1=(SampleClass) session.getAttribute("classObj");
     	if(paramvalue!=null && paramvalue.equals("504")){
-			info.increaseRequests();
+    		classObj1.increaseErrors();
 			//numberOfErrorResponses++;
-			session.setAttribute("info", info);
+			session.setAttribute("classObj1", classObj1);
 			//out.print("<br>Error Responses: "+errorResponses);
 		//System.out.print(""+numberOfErrorResponses);
 		}
-    	session.setAttribute("numberOfErrorResponses", numberOfErrorResponses);
-    	//String paramvalue=(String)ctx.getAttribute("error");
-    	//map=(HashMap<String, SampleClass>) ctx.getAttribute("maps");
-    /*	for (Entry<String, SampleClass> entry : map.entrySet()) {
-			if(entry.getKey().equals(username)){
-				if(paramvalue!=null && paramvalue.equals("504")){
-					
-					numberOfErrorResponses++;
-					//out.print("<br>Error Responses: "+errorResponses);
-				
-				}
-			}
-		}*/
+    
 		
 		
 		    }
@@ -91,10 +79,10 @@ public class MyServletRequestListener implements ServletRequestListener {
 				numberOfRequests++;
 			}
 		}*/
-		SampleClass info=(SampleClass) session.getAttribute("info");
-	if(info!=null){
-			info.increaseRequests();
-			session.setAttribute("info", info);
+		SampleClass classObj=(SampleClass) session.getAttribute("info");
+	if(classObj!=null){
+		classObj.increaseRequests();
+			session.setAttribute("classObj", classObj);
 			System.out.println("hello");
 			
 	}
